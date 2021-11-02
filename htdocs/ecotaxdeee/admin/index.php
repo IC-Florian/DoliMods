@@ -51,8 +51,11 @@ if ($action == 'save') {
 	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]), 'chaine', 0, '', $conf->entity);
 	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]), 'chaine', 0, '', $conf->entity);
 	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]), 'chaine', 0, '', $conf->entity);
+//	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE', trim($_POST["ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_SUPPLIER_ORDER', trim($_POST["ECOTAXDEEE_USE_ON_SUPPLIER_ORDER"]), 'chaine', 0, '', $conf->entity);
 	$res=dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim($_POST["ECOTAXDEEE_LABEL_LINE"]), 'chaine', 0, '', $conf->entity);
 	$res=dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim($_POST["ECOTAXDEEE_DOC_FOOTER"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'WEEE_DISABLE_VAT_ON_ECOTAX', trim($_POST["WEEE_DISABLE_VAT_ON_ECOTAX"]), 'chaine', 0, '', $conf->entity);
 
 	$product_wee=$_POST["WEEE_PRODUCT_ID"];
 	if ($product_wee < 0) $product_wee='';
@@ -129,6 +132,23 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE", $selectedvalue, 1
 print "</td>";
 print "</tr>";
 
+print '<tr class="oddeven">';
+print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_SUPPLIER_ORDER")."</td>";
+print "<td>";
+$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER;
+print $form->selectyesno("ECOTAXDEEE_USE_ON_SUPPLIER_ORDER", $selectedvalue, 1);
+print "</td>";
+print "</tr>";
+
+
+//print '<tr class="oddeven">';
+//print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE")."</td>";
+//print "<td>";
+//$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE;
+//print $form->selectyesno("ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE", $selectedvalue, 1);
+//print "</td>";
+//print "</tr>";
+
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
 print '<tr class="oddeven">';
 if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled)) {
@@ -146,7 +166,7 @@ print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$se
 print "</td>";
 print "</tr>";
 
-/*
+
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("WEEE_DISABLE_VAT_ON_ECOTAX")."</td>";
 print "<td>";
@@ -154,7 +174,7 @@ $selectedvalue=$conf->global->WEEE_DISABLE_VAT_ON_ECOTAX;
 print $form->selectyesno("WEEE_DISABLE_VAT_ON_ECOTAX",$selectedvalue,1);
 print "</td>";
 print "</tr>";
-*/
+
 
 // ECOTAXDEEE_DOC_FOOTER
 print '<tr class="oddeven">';
@@ -208,6 +228,8 @@ $elements=array();
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->transnoentitiesnoconv("Proposals");
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("SupplierOrders");
+//if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("SupplierInvoice");
 if (count($elements)) {
 	/*if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
 	{*/
